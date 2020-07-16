@@ -12,7 +12,7 @@ public class PaymentMethodPage extends PageBase {
     @FindBy(xpath = "//*[@value='Payments.Manual']")
     private WebElement creditCardPayment;
 
-    @FindBy(xpath = "")
+    @FindBy(xpath = "//*[@class='button-1 payment-method-next-step-button']")
     private WebElement continueToPaymentInformation_Button;
 
     public PaymentMethodPage(WebDriver driver) {

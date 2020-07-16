@@ -3,6 +3,7 @@ package pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 
 public class CheckOutPage extends PageBase{
 
@@ -12,8 +13,8 @@ public class CheckOutPage extends PageBase{
     @FindBy(xpath = "//*[@class='checkout-buttons']")
     private WebElement checkOutButton;
 
-    @FindBy(xpath = "//*[@class='button-1 checkout-as-guest-button']")
-    private WebElement checkOutAsGuestButton;
+    @FindBy(id="checkout_attribute_input_1")
+    private WebElement giftRappingOptionDropDown;
 
     public CheckOutPage(WebDriver driver) {
         super(driver);
@@ -29,8 +30,10 @@ public class CheckOutPage extends PageBase{
         checkOutButton.click();
     }
 
-    public void setCheckOutAsGuestButton(){
-        checkOutAsGuestButton.click();
+    public void setGiftRappingOption(String giftRappingOption){
+        Select s = new Select(giftRappingOptionDropDown);
+        s.selectByVisibleText(giftRappingOption);
+
     }
 
 }

@@ -18,28 +18,43 @@ public class ShippingAddressPage extends PageBase {
 
     @FindBy(xpath = "//*[@id='BillingNewAddress_FirstName']")
     private WebElement billingFirstNameInput;
+
     @FindBy(xpath = "//*[@id='BillingNewAddress_LastName']")
     private WebElement billingLastNameInput;
+
     @FindBy(xpath = "//*[@id='BillingNewAddress_Email']")
     private WebElement billingEmailInput;
+
     @FindBy(xpath = "//*[@id='BillingNewAddress_Company']")
     private WebElement billingCompanyInput;
+
     @FindBy(xpath = "//*[@id='BillingNewAddress_CountryId']")
     private WebElement billingCountryDropDown;
+
     @FindBy(xpath = "//*[@id='BillingNewAddress_StateProvinceId']")
     private WebElement billingStateDropDown;
+
     @FindBy(xpath = "//*[@id='BillingNewAddress_City']")
     private WebElement billingCityInput;
+
     @FindBy(xpath = "//*[@id='BillingNewAddress_Address1']")
     private WebElement billingAddress_1_Input;
+
     @FindBy(xpath = "//*[@id='BillingNewAddress_Address2']")
     private WebElement billingAddress_2_Input;
+
     @FindBy(xpath = "//*[@id='BillingNewAddress_ZipPostalCode']")
     private WebElement billingZipInput;
+
     @FindBy(xpath = "//*[@id='BillingNewAddress_PhoneNumber']")
     private WebElement billingPhoneNoInput;
+
     @FindBy(xpath = "//*[@id='BillingNewAddress_FaxNumber']")
     private WebElement billingFaxNoInput;
+
+    @FindBy(xpath = "//*[@class='field-validation-error']")
+    private List<WebElement> shippingErrorMessages;
+
     @FindBy(xpath = "//div[@id='shipping-buttons-container']//input[@class='button-1 new-address-next-step-button']")
     private WebElement continueToShippingMethodButton;
 
@@ -54,8 +69,6 @@ public class ShippingAddressPage extends PageBase {
             billingAddressInput.get(index).click();
         }
     }
-
-
 
     // sa nu duplic codul, cum refolosesc codul din BillingAddressPage
 
@@ -129,6 +142,11 @@ public class ShippingAddressPage extends PageBase {
     public void fillIn_BillingFaxNo(String fax) {
         billingFaxNoInput.sendKeys(fax);
     }
+
+    // sa scot din lista mesajele de eroare
+/*    public String shippingErrorMessages(){
+    return
+    }*/
 
 }
 

@@ -22,14 +22,9 @@ public class ShippingMethodPage extends PageBase {
         super(driver);
     }
 
-    public void setShippingByLandOption() {
-        shippingByLandOption.click();
-    }
+    public void setShippingByLandOption() { shippingByLandOption.click(); }
 
-    public void setOneDayAirShippingOption() {
-        oneDayAirShippingOption.click();
-        continueToPaymentMethodeButton.click();
-    }
+    public void setOneDayAirShippingOption() { oneDayAirShippingOption.click(); }
 
     public void setTwoDayAirShippingOption() {
         twoDayAirShippingOption.click();
@@ -38,6 +33,5 @@ public class ShippingMethodPage extends PageBase {
     public void setContinueToPaymentMethodeButton() {
         continueToPaymentMethodeButton.click();
     }
-
 
 }
