@@ -1,8 +1,10 @@
-package pages;
+package pages.checkout;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import pages.PageBase;
 
 
 public class ConfirmOrderPage extends PageBase {
@@ -17,12 +19,14 @@ public class ConfirmOrderPage extends PageBase {
         super(driver);
     }
 
-    public void setConfirmShippingButton() {
+    public void clickConfirmOrder() {
         confirmShippingButton.click();
     }
 
-    public void setConfirmOrderSuccesMessage(){
-        confirmOrderSuccesMessage.getText();
+    public String getConfirmOrderSuccesMessage(){
+        wait.until(ExpectedConditions.visibilityOf(confirmOrderSuccesMessage));
+        return confirmOrderSuccesMessage.getText();
+
     }
 
 }

@@ -1,8 +1,9 @@
-package pages;
+package pages.checkout;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import pages.PageBase;
 
 public class Check_PaymentInformationPage extends PageBase {
 

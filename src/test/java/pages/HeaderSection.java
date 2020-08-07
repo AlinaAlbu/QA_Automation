@@ -9,6 +9,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import pages.checkout.ShoppingCartPage;
+
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -21,6 +23,8 @@ public class HeaderSection extends PageBase {
 
     @FindBy(className = "cart-label")
     private WebElement shoppingCartLink;
+    @FindBy(xpath = "//input[@value='Go to cart']")
+    private WebElement goToCartButton;
 
     @FindBy(xpath = "//div[@class='product']/div[@class='name']")
     private List<WebElement> cartProductTitles;
@@ -109,7 +113,15 @@ public class HeaderSection extends PageBase {
         return quantities;
     }
 
-    private void viewCartContent() {
+    public ShoppingCartPage goToCartPage() {
+        viewCartContent();
+        wait.until(ExpectedConditions.visibilityOf(goToCartButton));
+        goToCartButton.click();
+
+        return new ShoppingCartPage(driver);
+    }
+
+    public void viewCartContent() {
 
         Actions actions = new Actions(driver);
         actions.moveToElement(shoppingCartLink).perform();

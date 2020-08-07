@@ -1,10 +1,11 @@
-package pages;
+package pages.checkout;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import pages.PageBase;
 
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class CreditCard_PaymentInformationPage extends PageBase {
         super(driver);
     }
 
-    public void setCardDetails(String cardHolderName, String cardNo, String expireMonth, String expireYear, String cardCode){
+    public void cardDetails(String cardHolderName, String cardNo, String expireMonth, String expireYear, String cardCode){
         fillIn_CardHolderName(cardHolderName);
         fillIn_CardNo(cardNo);
         fillIn_ExpireMonth(expireMonth);

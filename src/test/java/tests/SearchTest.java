@@ -108,7 +108,7 @@ public class SearchTest extends TestBase {
         assertThat(resultPage.advancedSearchProductTitles(), greaterThanOrEqualTo(1));
     }
 
-    /*    @Test
+    @Test
     public void canSearchForAnExistingItem() {
         HomePage homePage = new HomePage(driver);
         ResultPage resultPage = homePage.searchFor("book");
@@ -137,7 +137,7 @@ public class SearchTest extends TestBase {
         HomePage homePage = new HomePage(driver);
         ResultPage resultPage = homePage.searchFor("");
         assertThat(resultPage.getAlertNotification(), is("Please enter some search keyword"));
-    }*/
+    }
 }
 
 

@@ -2,64 +2,76 @@ package tests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.interactions.Actions;
 import pages.*;
+import pages.checkout.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 
 public class CheckOut_AsGuestTest extends TestBase{
 
     private HomePage homePage;
-    private FeaturedProductPage featuredProductPage;
     private ShoppingCartPage shoppingCartPage;
     private CheckOutPage checkOutPage;
-    private CheckOut_AsGuest checkOutAsGuest;
-    private BillingAddressPage billingAddressPage;
-    private ShippingAddressPage shippingAddressPage;
-    private ShippingMethodPage shippingMethodPage;
-    private Check_PaymentInformationPage checkPaymentInformationPage;
 
     @BeforeEach
     void setUp() {
-
         driver.get("https://demo.nopcommerce.com/");
 
         homePage = new HomePage(driver);
-        featuredProductPage = new FeaturedProductPage(driver);
-        shoppingCartPage = new ShoppingCartPage(driver);
-        checkOutPage = new CheckOutPage(driver);
-        checkOutAsGuest = new CheckOut_AsGuest(driver);
-
-        billingAddressPage = new BillingAddressPage(driver);
-        shippingAddressPage = new ShippingAddressPage(driver);
-        shippingMethodPage = new ShippingMethodPage(driver);
-        checkPaymentInformationPage = new Check_PaymentInformationPage(driver);
-
         homePage.addToCartProductWithIndex(2);
 
-        new Actions(driver).moveToElement(featuredProductPage.cartButton).perform();
+        shoppingCartPage = homePage.getHeaderSection().goToCartPage();
 
-        featuredProductPage.cartButton.click();
+        checkOutPage = shoppingCartPage.acceptTermAndCheckOut();
 
     }
+
     @Test
 
     public void canCheckOut_AFeaturedProduct_AsGuest(){
 
-        billingAddressPage.billingAddress_CheckOutAsGuest("a", "b","a@gmail.com", "bla bla SRL",
-               "1","1", "a", "2", "123456", "123456", "123", "123");
-        shippingAddressPage.newShippingAddress("q", "q","q@gmail.com", "q",
-               "1", "1", "q", "w", "w", "123456", "2", "2");
+        checkOutPage.clickCheckOutAsGuestButton();
+        BillingAddressPage billingAddress = new BillingAddressPage(driver);
+        billingAddress.shipToTheSameAddress(false);
 
+        billingAddress.fillInBillingAddress("a", "b","a@gmail.com", "bla bla SRL",
+               "United States","Alabama", "a", "2", "1", "123456", "123", "123");
+
+
+        ShippingAddressPage shippingAddress = new ShippingAddressPage(driver);
+        shippingAddress.selectNewAddress("New Address");
+
+        shippingAddress.fillInNewShippingAddress("q", "q","q@gmail.com", "q",
+               "United States", "Alabama", "q", "w", "w", "123456", "2", "2");
+
+        ShippingMethodPage shippingMethod = new ShippingMethodPage(driver);
+        shippingMethod.selectTwoDayAirShippingOption();
+
+        PaymentMethodPage paymentMethod = new PaymentMethodPage(driver);
+        paymentMethod.selectCreditCardPayment();
+
+        CreditCard_PaymentInformationPage creditCardInfo = new CreditCard_PaymentInformationPage(driver);
+        creditCardInfo.cardDetails("123", "14111 1111 1111 1111",
+                "1", "2021", "948");
+
+        ConfirmOrderPage confirmOrder = new ConfirmOrderPage(driver);
+        confirmOrder.clickConfirmOrder();
+
+        assertThat(confirmOrder.getConfirmOrderSuccesMessage(),
+                is ("Your order has been successfully processed!"));
 
     }
 
+/*
     @Test
 
     public void cannotCheckOut_AFeaturedProduct_WithOutFillingTheBillingAddress_AsGuest(){
 
-        billingAddressPage.billingAddress_CheckOutAsGuest("", "","", "",
-                "","", "", "", "", "", "", "");
+//        billingAddressPage.billingAddress_CheckOutAsGuest("", "","", "",
+//                "","", "", "", "", "", "", "");
+
+
     }
 
     @Test
@@ -69,5 +81,6 @@ public class CheckOut_AsGuestTest extends TestBase{
 
 
     }
+*/
 
 }

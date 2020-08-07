@@ -1,10 +1,11 @@
-package pages;
+package pages.checkout;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import pages.PageBase;
 
 import java.util.List;
 
@@ -16,10 +17,10 @@ public class ShippingAddressPage extends PageBase {
     @FindBy(xpath = "//*[@name='billing_address_id']")
     private List<WebElement> billingAddressInput;
 
-    @FindBy(xpath = "//*[@id='BillingNewAddress_FirstName']")
-    private WebElement billingFirstNameInput;
+    @FindBy(id ="shipping-address-select")
+    private WebElement shippingFirstNameInput;
 
-    @FindBy(xpath = "//*[@id='BillingNewAddress_LastName']")
+    @FindBy(id = "ShippingNewAddress_LastName")
     private WebElement billingLastNameInput;
 
     @FindBy(xpath = "//*[@id='BillingNewAddress_Email']")
@@ -30,6 +31,8 @@ public class ShippingAddressPage extends PageBase {
 
     @FindBy(xpath = "//*[@id='BillingNewAddress_CountryId']")
     private WebElement billingCountryDropDown;
+    @FindBy(id="states-loading-progress")
+    private WebElement statesLoadingAnimation;
 
     @FindBy(xpath = "//*[@id='BillingNewAddress_StateProvinceId']")
     private WebElement billingStateDropDown;
@@ -58,6 +61,9 @@ public class ShippingAddressPage extends PageBase {
     @FindBy(xpath = "//div[@id='shipping-buttons-container']//input[@class='button-1 new-address-next-step-button']")
     private WebElement continueToShippingMethodButton;
 
+    @FindBy(id="shipping-address-select")
+    private WebElement newAddressDropDown;
+
     public ShippingAddressPage(WebDriver driver) {
         super(driver);
     }
@@ -70,12 +76,10 @@ public class ShippingAddressPage extends PageBase {
         }
     }
 
-    // sa nu duplic codul, cum refolosesc codul din BillingAddressPage
-
-    public void newShippingAddress(String firstName, String lastName,
-                                   String email, String company, String country, String state,
-                                   String city, String address_1, String address_2, String zip,
-                                   String phone, String fax) {
+    public void fillInNewShippingAddress(String firstName, String lastName,
+                                         String email, String company, String country, String state,
+                                         String city, String address_1, String address_2, String zip,
+                                         String phone, String fax) {
         fillIn_BillingFirstName(firstName);
         fillIn_BillingLastName(lastName);
         fillIn_BillingEmail(email);
@@ -93,15 +97,16 @@ public class ShippingAddressPage extends PageBase {
     }
 
     public void fillIn_BillingFirstName(String firstName) {
-        billingFirstNameInput.sendKeys(firstName);
+        wait.until(ExpectedConditions.visibilityOf(shippingFirstNameInput));
+        shippingFirstNameInput.sendKeys(firstName);
     }
 
     public void fillIn_BillingLastName(String lastName) {
-        billingLastNameInput.sendKeys();
+        billingLastNameInput.sendKeys(lastName);
     }
 
     public void fillIn_BillingEmail(String email) {
-        billingEmailInput.sendKeys();
+        billingEmailInput.sendKeys(email);
     }
 
     public void fillIn_BillingCompany(String company) {
@@ -111,6 +116,8 @@ public class ShippingAddressPage extends PageBase {
     public void fillIn_BillingCountry(String country) {
         Select s = new Select(billingCountryDropDown);
         s.selectByVisibleText(country);
+//        wait.until(ExpectedConditions.visibilityOf(statesLoadingAnimation));
+//        wait.until(ExpectedConditions.invisibilityOf(statesLoadingAnimation));
     }
 
     public void fillIn_BillingState(String state) {
@@ -143,10 +150,14 @@ public class ShippingAddressPage extends PageBase {
         billingFaxNoInput.sendKeys(fax);
     }
 
-    // sa scot din lista mesajele de eroare
-/*    public String shippingErrorMessages(){
-    return
-    }*/
+    public void selectNewAddress(String address){
+        wait.until(ExpectedConditions.visibilityOf(newAddressDropDown));
+        Select s = new Select(newAddressDropDown);
+        s.selectByVisibleText(address);
+
+    }
+
+
 
 }
 

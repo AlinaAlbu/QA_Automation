@@ -1,8 +1,9 @@
-package pages;
+package pages.checkout;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import pages.PageBase;
 
 public class PaymentMethodPage extends PageBase {
 
@@ -19,15 +20,15 @@ public class PaymentMethodPage extends PageBase {
         super(driver);
     }
 
-    public void setCheckPayment() {
+    public void selectCheckPayment() {
         checkPayment.click();
     }
 
-    public void setCreditCardPayment() {
+    public void selectCreditCardPayment() {
         creditCardPayment.click();
     }
 
-    public void setContinueToPaymentInformation_Button() {
+    public void clickContinueToPaymentInformation_Button() {
         continueToPaymentInformation_Button.click();
     }
 }

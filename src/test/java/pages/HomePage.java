@@ -3,6 +3,8 @@ package pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +21,13 @@ public class HomePage extends PageBase {
 
     @FindBy(xpath = "//input[@value='Search']")
     private WebElement searchButton;
+
+
+    @FindBy(className = "name")
+    private List<WebElement> cartProductNames;
+
+    @FindBy(xpath = "//input[@value='Add to cart']")
+    private List<WebElement> featuredSectionAddToCartButtons;
 
     private HeaderSection headerSection;
     private FooterSection footerSection;
@@ -62,6 +71,29 @@ public class HomePage extends PageBase {
 
         return footerSection;
     }
+
+
+
+    public List<String> getShoppingCartItems() {
+        headerSection.viewCartContent();
+        List<String> titles = new ArrayList<>();
+
+        wait.until(ExpectedConditions.visibilityOfAllElements(cartProductNames));
+
+        for(int i = 0; i < cartProductNames.size(); i++) {
+            titles.add(cartProductNames.get(i).getText());
+        }
+
+        return titles;
+    }
+
+    public ResultPage addFeaturedProductToCartWithIndex(int index) {
+        wait.until(ExpectedConditions.visibilityOfAllElements(featuredSectionAddToCartButtons));
+        featuredSectionAddToCartButtons.get(index).click();
+
+        return new ResultPage(driver);
+    }
+
 
     /*
 package pages;

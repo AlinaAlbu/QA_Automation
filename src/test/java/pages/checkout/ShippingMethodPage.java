@@ -1,8 +1,9 @@
-package pages;
+package pages.checkout;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import pages.PageBase;
 
 public class ShippingMethodPage extends PageBase {
 
@@ -22,15 +23,15 @@ public class ShippingMethodPage extends PageBase {
         super(driver);
     }
 
-    public void setShippingByLandOption() { shippingByLandOption.click(); }
+    public void selectShippingByLandOption() { shippingByLandOption.click(); }
 
-    public void setOneDayAirShippingOption() { oneDayAirShippingOption.click(); }
+    public void selectOneDayAirShippingOption() { oneDayAirShippingOption.click(); }
 
-    public void setTwoDayAirShippingOption() {
+    public void selectTwoDayAirShippingOption() {
         twoDayAirShippingOption.click();
     }
 
-    public void setContinueToPaymentMethodeButton() {
+    public void clickContinueToPaymentMethodeButton() {
         continueToPaymentMethodeButton.click();
     }
 
